@@ -1,4 +1,4 @@
-# Contribution
+# Contributing to FaceRecognition
 
 ### Cloning this project
 Make sure you have `git` installed. If you do not have `git`
