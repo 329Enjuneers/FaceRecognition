@@ -45,4 +45,5 @@ Assuming you get a successful build, you can then run:
 mvn appengine:devserver
 ```
 Which will spin up an instance of our application locally. You can navigate
-to this application by navigating to http://localhost:8080/ in your browser.
+to this application by navigating to
+[http://localhost:8080/] (http://localhost:8080/) in your browser.
