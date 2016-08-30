@@ -22,6 +22,7 @@ import javax.servlet.ServletContextListener;
 import com.googlecode.objectify.ObjectifyService;
 
 import person.Person;
+import user.User;
 
 /**
  * OfyHelper, a ServletContextListener, is setup in web.xml to run before a JSP is run.  This is
@@ -32,6 +33,7 @@ public class OfyHelper implements ServletContextListener {
     // This will be invoked as part of a warmup request, or the first user request if no warmup
     // request.
     ObjectifyService.register(Person.class);
+    ObjectifyService.register(User.class);
   }
 
   public void contextDestroyed(ServletContextEvent event) {
