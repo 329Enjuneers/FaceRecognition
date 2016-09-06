@@ -52,6 +52,11 @@
             <artifactId>google-api-client</artifactId>
             <version>1.22.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
+        </dependency>
 
 <!-- [START Objectify_Dependencies] -->
         <dependency>
