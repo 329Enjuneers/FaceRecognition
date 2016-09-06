@@ -15,10 +15,12 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 
+import html_builder.HTMLBuilder;
 import kairos.KairosApp;
 
 public class FaceServlet extends HttpServlet {
-	
+	private static final long serialVersionUID = 1L;
+
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
 	@Override
@@ -40,5 +42,9 @@ public class FaceServlet extends HttpServlet {
 		
 		KairosApp kairos = new KairosApp();
 		kairos.enroll(servingUrl, "test-subject", "test-gallery");
+		HTMLBuilder htmlBuilder = new HTMLBuilder();
+		htmlBuilder.addToBody("We're working on it");
+		out.write(htmlBuilder.build());
 	}
+
 }
