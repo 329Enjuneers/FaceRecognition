@@ -15,8 +15,8 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 
-import html_builder.HTMLBuilder;
 import kairos.KairosApp;
+import pages.html_builder.HTMLBuilder;
 
 public class FaceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

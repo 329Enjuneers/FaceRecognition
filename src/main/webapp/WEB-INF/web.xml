@@ -17,6 +17,10 @@
       <servlet-name>Serve</servlet-name>
       <servlet-class>servlets.Serve</servlet-class>
     </servlet>
+    <servlet>
+      <servlet-name>Group</servlet-name>
+      <servlet-class>servlets.GroupServlet</servlet-class>
+    </servlet>
 
 
     <servlet-mapping>
@@ -27,9 +31,13 @@
       <servlet-name>Face</servlet-name>
       <url-pattern>/face</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
       <servlet-name>Serve</servlet-name>
       <url-pattern>/serve</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+      <servlet-name>Group</servlet-name>
+      <url-pattern>/group</url-pattern>
     </servlet-mapping>
 <!-- [END standard_mappings] -->
 

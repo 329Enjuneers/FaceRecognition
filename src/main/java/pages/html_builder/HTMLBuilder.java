@@ -1,18 +1,24 @@
-package html_builder;
+package pages.html_builder;
 
 import java.util.ArrayList;
 
+import user.User;
+
 public class HTMLBuilder {
+  public boolean includeAppHeader;
+  
   private ArrayList<String> body;
   private ArrayList<String> head;
   private ArrayList<String> scripts;
   private boolean headIsSet;
+  
 
   public HTMLBuilder() {
       body = new ArrayList<String>();
       head = new ArrayList<String>();
       scripts = new ArrayList<String>();
       headIsSet = false;
+      includeAppHeader = false;
   }
 
   public String build() {
@@ -35,10 +41,6 @@ public class HTMLBuilder {
 
   public void addToHead(String line) {
 	  head.add(line);
-  }
-  
-  public Form getNewForm() {
-	  return new Form();
   }
 
   public void setTitle(String title) throws Exception {
@@ -70,6 +72,9 @@ public class HTMLBuilder {
   private String buildBody() {
 	  StringBuilder str = new StringBuilder();
 	  str.append("<body>");
+	  if (includeAppHeader) {
+		  str.append(getAppHeader());
+	  }
 	  for (String line : body) {
 		  str.append(line + "\n");
 	  }
@@ -83,5 +88,22 @@ public class HTMLBuilder {
 		  str.append(line + "\n");
 	  }
 	  return str.toString();
+  }
+  
+  private String getAppHeader() {
+	  User user = User.getCurrentUser();
+	  if (user == null) {
+		  return "";
+	  }
+	  Div div = new Div();
+	  div.addElement("<h4 style='display: inline'>Welcome, " + user.nickname + "</h4>");
+      div.addElement("<span style='float: right'>Logout <a href='/_ah/logout?continue=%2F'> here </a></span>");
+      
+      Div tabs = new Div();
+      tabs.addElement("<a href='/'>Home</a>");
+      String divString = div.toString();
+      String tabsString = tabs.toString();
+      String hr = "<hr>";
+      return divString + tabsString + hr;
   }
 }

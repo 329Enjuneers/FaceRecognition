@@ -21,6 +21,7 @@ import javax.servlet.ServletContextListener;
 
 import com.googlecode.objectify.ObjectifyService;
 
+import group.Group;
 import person.Person;
 import user.User;
 
@@ -34,6 +35,7 @@ public class OfyHelper implements ServletContextListener {
     // request.
     ObjectifyService.register(Person.class);
     ObjectifyService.register(User.class);
+    ObjectifyService.register(Group.class);
   }
 
   public void contextDestroyed(ServletContextEvent event) {

@@ -1,4 +1,4 @@
-package html_builder;
+package pages.html_builder;
 
 import java.util.ArrayList;
 import java.util.HashMap;

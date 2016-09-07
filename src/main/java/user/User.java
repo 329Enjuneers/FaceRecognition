@@ -11,7 +11,7 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 public class User{
 	@Id private Long id;
-	@Index private String email;
+	@Index public String email;
 	public String nickname;
 	
 	public User() {
