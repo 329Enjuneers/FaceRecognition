@@ -1,19 +1,37 @@
 package person;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
+import java.util.UUID;
 
-@Entity
 public class Person {
-	// TODO add attributes and functions that we need
-	@Id private long id;
-	private String name;
+	public String firstName;
+	public String lastName;
+	public String notes;
+	public String servingUrl;
+	private String subjectId;
 	
-	public Person() {
-		this.name = null;
-	}
+	public Person() {}
 
-	public Person(String name) {
-		this.name = name;
+	public Person(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.servingUrl = null;
+		this.notes = null;
+		this.subjectId = makeSubjectId();
+	}
+	
+	public Person(String firstName, String lastName, String servingUrl) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.servingUrl = servingUrl;
+		this.notes = null;
+		this.subjectId = makeSubjectId();
+	}
+	
+	public String getSubjectId() {
+		return subjectId;
+	}
+	
+	private String makeSubjectId() {
+		return UUID.randomUUID().toString();
 	}
 }

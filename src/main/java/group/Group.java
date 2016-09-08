@@ -3,6 +3,7 @@ package group;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -17,7 +18,7 @@ public class Group {
 	@Index public String ownerEmail;
 	@Index public String name;
 	
-	public ArrayList<Person> children;
+	private ArrayList<Person> children;
 	
 	public Group() {}
 	
@@ -50,6 +51,31 @@ public class Group {
 	
 	public static Group get(String name, String ownerEmail) {
 		return ofy().load().type(Group.class).filter("ownerEmail", ownerEmail).filter("name", name).first().now();
+	}
+	
+	public void addChild(Person person) {
+		if (children == null) {
+			children = new ArrayList<Person>();
+		}
+		children.add(person);
+		save();
+	}
+	
+	public Person getChild(String subjectId) {
+		for (Person person : children) {
+			if (person.getSubjectId().equals(subjectId)) {
+				return person;
+			}
+		}
+		return null;
+	}
+	
+	public Iterator<Person> getChildren() {
+		return children.iterator();
+	}
+	
+	public int getNumChildren() {
+		return children.size();
 	}
 	
 	public void save() {

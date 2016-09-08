@@ -43,9 +43,9 @@ public class FaceServlet extends HttpServlet {
 		// TODO
 		// 1. Get group name from this request
 		// 2. Get first name and last name from this request
-		// 3. Create new Person
-		// 4. Generate subject id based on person
-		// 5. Enroll user
+		// 3. Fetch person
+		// 4. Get persons subject id
+		// 5. Recognize face
 		
 		KairosApp kairos = new KairosApp();
 //		kairos.enroll(servingUrl, "joe-testing", "test-gallery");
