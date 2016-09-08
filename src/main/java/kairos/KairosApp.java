@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.appengine.api.urlfetch.HTTPHeader;
@@ -34,6 +36,7 @@ public class KairosApp {
 	 * @param gallery - String : name of the gallery this person belongs to. Can be case-sensitive. Please ensure the gallery_name is supplied correctly.
 	 */
 	public void enroll(String imageUrl, String subjectId,  String gallery) {
+		log.warning("Enrolling!");
 		EnrollRequest request = new EnrollRequest();
 		request.imageUrl = imageUrl;
 		request.subjectId = subjectId;
@@ -41,7 +44,7 @@ public class KairosApp {
 		try {
 			JSONObject json = request.send();
 			if (json != null) {
-				log.warning(json.toString());	
+				log.warning(json.toString());
 			}
 			else {
 				log.warning("Bad json");
@@ -57,22 +60,19 @@ public class KairosApp {
 	 * @param imageUrl - String : Public image url for kairos to recognize faces from.
 	 * @param gallery - String : The gallery_id of the gallery that contains this person.
 	 */
-	public void detectFaces(String imageUrl, String gallery) {
+	public String recognize(String imageUrl, String gallery) {
 		RecognizeRequest request = new RecognizeRequest();
 		request.imageUrl = imageUrl;
 		request.gallery = gallery;
 		try {
 			JSONObject json = request.send();
 			if (json != null) {
-				log.warning(json.toString());	
+				return getSubjectId(json);
 			}
-			else {
-				log.warning("Bad json");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException | JSONException e) {
 			log.warning("Something went wrong while processing the request please try again.");
 		}
+		return null;
 	} // End function detectFaces.
 
 	/**
@@ -132,5 +132,13 @@ public class KairosApp {
 		}else{
 			return galleries;
 		}
+	}
+	
+	private String getSubjectId(JSONObject json) throws JSONException {
+		JSONArray images = new JSONArray();
+		images = json.getJSONArray("images");
+		JSONObject image = images.getJSONObject(0);
+		JSONObject transaction = image.getJSONObject("transaction");
+		return transaction.getString("subject");
 	}
 }

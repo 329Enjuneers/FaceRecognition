@@ -3,11 +3,14 @@ package pages;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 import group.Group;
 import pages.html_builder.Div;
+import pages.html_builder.Form;
 import pages.html_builder.HTMLBuilder;
 import user.User;
 
@@ -35,6 +38,7 @@ public class GroupPage {
 		addHeader();
 		addHorizontalRule();
 		addChildren();
+		addImageForm(); // TODO remove -- only used for testing
 		return htmlBuilder.build();
 	}
 	
@@ -74,5 +78,19 @@ public class GroupPage {
 	
 	private void addChildren() {
 		// TODO add children to the page
+	}
+	
+	private void addImageForm() {
+		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+		Form form = new Form();
+		
+		form.addProperty("method", "POST");
+		form.addProperty("enctype", "multipart/form-data");
+		form.addProperty("action", blobstoreService.createUploadUrl("/face"));
+		
+		form.addElement("<input type='file' accept='image/*' name='image'>");
+		form.addElement("<input type='submit'>");
+		
+		htmlBuilder.addToBody(form.toString());
 	}
  }

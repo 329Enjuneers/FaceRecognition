@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ public class EnrollRequest extends KairosRequest {
 	private HTTPRequest request;
 	
 	private static final String requestUrl = BASE_URL + "/enroll";
+	private static final Logger log = Logger.getLogger(EnrollRequest.class.getName());
 	
 	public EnrollRequest() {
 		imageUrl = null;
@@ -40,8 +42,13 @@ public class EnrollRequest extends KairosRequest {
 		if (response.getResponseCode() != 200) {
 			throw new IOException(new String(response.getContent()));
 		}
-		JSONObject myObject = new JSONObject(response.getContent());
-		return myObject;
+		log.info("Received the following content from Kairos:");
+		log.info(new String(response.getContent()));
+		try {
+			return new JSONObject(new String(response.getContent()));
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 	
 	private boolean allDataSet() {

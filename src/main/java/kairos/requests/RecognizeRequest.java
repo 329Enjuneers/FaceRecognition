@@ -37,8 +37,14 @@ public class RecognizeRequest extends KairosRequest{
 		if (response.getResponseCode() != 200) {
 			throw new IOException(new String(response.getContent()));
 		}
-		JSONObject myObject = new JSONObject(response.getContent());
-		return myObject;
+		log.info("Received the following content from Kairos:");
+		log.info(new String(response.getContent()));
+		
+		try {
+			return new JSONObject(new String(response.getContent()));
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 	
 	private boolean allDataSet() {
