@@ -15,12 +15,14 @@ public class GroupPage {
 	private HTMLBuilder htmlBuilder;
 	private User user;
 	private Group group;
+	private String baseUrl;
 	
-	public GroupPage(Group group) {
-		htmlBuilder = new HTMLBuilder();
+	public GroupPage(String baseUrl, Group group) {
+		htmlBuilder = new HTMLBuilder(baseUrl);
 		htmlBuilder.includeAppHeader = true;
 		user = User.getCurrentUser();
 		this.group = group;
+		this.baseUrl = baseUrl;
 	}
 	
 	public String make() {
@@ -45,7 +47,7 @@ public class GroupPage {
 	private void addLogout() {
 		UserService userService = UserServiceFactory.getUserService();
 		htmlBuilder.addToBody("You are not logged in!");
-    	htmlBuilder.addToBody("Login <a href='" + userService.createLoginURL("/") + "'> here </a>");
+    	htmlBuilder.addToBody("Login <a href='" + userService.createLoginURL(baseUrl) + "'> here </a>");
 	}
 	
 	private void addHeader() {

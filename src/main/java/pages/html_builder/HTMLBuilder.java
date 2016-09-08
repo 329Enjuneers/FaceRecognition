@@ -2,6 +2,9 @@ package pages.html_builder;
 
 import java.util.ArrayList;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 import user.User;
 
 public class HTMLBuilder {
@@ -11,14 +14,16 @@ public class HTMLBuilder {
   private ArrayList<String> head;
   private ArrayList<String> scripts;
   private boolean headIsSet;
+  private String baseUrl;
   
 
-  public HTMLBuilder() {
+  public HTMLBuilder(String baseUrl) {
       body = new ArrayList<String>();
       head = new ArrayList<String>();
       scripts = new ArrayList<String>();
       headIsSet = false;
       includeAppHeader = false;
+      this.baseUrl = baseUrl;
   }
 
   public String build() {
@@ -95,9 +100,10 @@ public class HTMLBuilder {
 	  if (user == null) {
 		  return "";
 	  }
+	  UserService userService = UserServiceFactory.getUserService();
 	  Div div = new Div();
 	  div.addElement("<h4 style='display: inline'>Welcome, " + user.nickname + "</h4>");
-      div.addElement("<span style='float: right'>Logout <a href='/_ah/logout?continue=%2F'> here </a></span>");
+      div.addElement("<span style='float: right'>Logout <a href='" + userService.createLogoutURL(baseUrl) + "'> here </a></span>");
       
       Div tabs = new Div();
       tabs.addElement("<a href='/'>Home</a>");

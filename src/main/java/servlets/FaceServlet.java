@@ -42,7 +42,7 @@ public class FaceServlet extends HttpServlet {
 		
 		KairosApp kairos = new KairosApp();
 		kairos.enroll(servingUrl, "test-subject", "test-gallery");
-		HTMLBuilder htmlBuilder = new HTMLBuilder();
+		HTMLBuilder htmlBuilder = new HTMLBuilder(req.getRequestURI());
 		htmlBuilder.addToBody("We're working on it");
 		out.write(htmlBuilder.build());
 	}
