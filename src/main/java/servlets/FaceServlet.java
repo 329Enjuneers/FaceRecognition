@@ -29,17 +29,17 @@ public class FaceServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
 		List<BlobKey> blobKeys = blobs.get("image");
-		
+
 		if (blobKeys.size() != 1) {
 			out.write("Must have only one image");
 			resp.setStatus(400);
 			return;
 		}
-		
+
 		BlobKey blob = blobKeys.get(0);
 		String servingUrl = ImagesServiceFactory.getImagesService().getServingUrl(ServingUrlOptions.Builder.withBlobKey(blob));
 		System.out.println(servingUrl);
-		
+
 		KairosApp kairos = new KairosApp();
 		kairos.enroll(servingUrl, "test-subject", "test-gallery");
 		HTMLBuilder htmlBuilder = new HTMLBuilder();
