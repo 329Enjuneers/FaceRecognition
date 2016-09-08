@@ -10,9 +10,9 @@ import group.Group;
 import pages.html_builder.Form;
 import pages.html_builder.HTMLBuilder;
 import user.User;
-
+import kairos.KairosApp;
 public class HomePage {
-	
+
 	private HTMLBuilder htmlBuilder;
 	private User user;
 	private String baseUrl;
@@ -22,6 +22,10 @@ public class HomePage {
 		htmlBuilder.includeAppHeader = true;
 		user = User.getCurrentUser();
 		this.baseUrl = baseUrl;
+		// Test Kairos APIs on homepage.
+		//TODO: Following lines associated with kairos will be removed from here.
+		KairosApp k = new KairosApp();
+		k.listGalleries();
 	}
 	
 	public HomePage(String baseUrl, User user) {
@@ -29,8 +33,12 @@ public class HomePage {
 		htmlBuilder.includeAppHeader = true;
 		this.user = user;
 		this.baseUrl = baseUrl;
+		// Test Kairos APIs on homepage.
+		//TODO: Following lines associated with kairos will be removed from here.
+		KairosApp k = new KairosApp();
+		k.listGalleries();
 	}
-	
+
 	public String make() {
 	    setTitle();
 	    if (user == null) {
@@ -42,19 +50,19 @@ public class HomePage {
 	    addOwnedGroups();
 	    return htmlBuilder.build();
 	}
-	
+
 	private void addLogout() {
 		UserService userService = UserServiceFactory.getUserService();
 		htmlBuilder.addToBody("You are not logged in!");
     	htmlBuilder.addToBody("Login <a href='" + userService.createLoginURL(baseUrl) + "'> here </a>");
 	}
- 	
+
 	private void setTitle() {
 		try {
 			htmlBuilder.setTitle("Home");
 		} catch (Exception e) {}
 	}
-	
+
 	private void addNewGroupForm() {
 		Form newGroupForm = new Form();
 	    newGroupForm.addProperty("action", "/group");
@@ -65,11 +73,11 @@ public class HomePage {
 	    newGroupForm.addElement("<button type='submit'>Add Group</button>");
 	    htmlBuilder.addToBody(newGroupForm.toString());
 	}
-	
+
 	private void addHorizontalRule() {
 		htmlBuilder.addToBody("<hr>");
 	}
-	
+
 	private void addOwnedGroups() {
 		htmlBuilder.addToBody("<ul>");
 	    for(Group group : Group.fetchByUser(user.email)) {
@@ -81,6 +89,6 @@ public class HomePage {
 	    }
 	    htmlBuilder.addToBody("</ul>");
 	}
-	
-	
+
+
 }
