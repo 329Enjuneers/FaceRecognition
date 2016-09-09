@@ -109,7 +109,7 @@ public class GroupMemberPage {
 	
 	private String getHiddenGroupNameDiv() {
 		Div hiddenGroupNameDiv = new Div();
-		hiddenGroupNameDiv.addElement("<input type='text' name='group-name' value='" + group.name + "' hidden>");
+		hiddenGroupNameDiv.addElement("<input type='text' name='groupName' value='" + group.name + "' hidden>");
 		return hiddenGroupNameDiv.toString();
 	}
 	
