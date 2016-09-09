@@ -17,11 +17,14 @@ public class NotRecognizedPage
 {
 	
 	private HTMLBuilder htmlBuilder;
+	private String baseUrl;
+
 	
-	public NotRecognizedPage() 
+	public NotRecognizedPage(String baseUrl) 
 	{
-		htmlBuilder = new HTMLBuilder();
+		htmlBuilder = new HTMLBuilder(baseUrl);
 		htmlBuilder.includeAppHeader = true;
+		this.baseUrl = baseUrl;
 	}
 	
 	public String make() {

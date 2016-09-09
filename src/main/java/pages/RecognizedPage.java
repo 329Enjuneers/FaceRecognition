@@ -16,18 +16,22 @@ public class RecognizedPage {
 
 	private HTMLBuilder htmlBuilder;
 	private User user;
+	private String baseUrl;
 
-	public RecognizedPage() {
-		htmlBuilder = new HTMLBuilder();
+
+	public RecognizedPage(String baseUrl) {
+		htmlBuilder = new HTMLBuilder(baseUrl);
 		htmlBuilder.includeAppHeader = true;
 		user = User.getCurrentUser();
+		this.baseUrl = baseUrl;
 
 	}
 
-	public RecognizedPage(User user) {
-		htmlBuilder = new HTMLBuilder();
+	public RecognizedPage(User user, String baseUrl) {
+		htmlBuilder = new HTMLBuilder(baseUrl);
 		htmlBuilder.includeAppHeader = true;
 		this.user = user;
+		this.baseUrl = baseUrl;
 	}
 
 	public void uploadPicture()
