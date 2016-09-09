@@ -21,6 +21,10 @@
       <servlet-name>Group</servlet-name>
       <servlet-class>servlets.GroupServlet</servlet-class>
     </servlet>
+    <servlet>
+      <servlet-name>Recognize</servlet-name>
+      <servlet-class>servlets.RecognizeServlet</servlet-class>
+    </servlet>
 
 
     <servlet-mapping>
@@ -38,6 +42,10 @@
     <servlet-mapping>
       <servlet-name>Group</servlet-name>
       <url-pattern>/group</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+      <servlet-name>Recognize</servlet-name>
+      <url-pattern>/rec</url-pattern>
     </servlet-mapping>
 <!-- [END standard_mappings] -->
 
