@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import pages.RecognizedPage;
 import pages.html_builder.HTMLBuilder;
 
+/**
+ * for when user inputs a picture and the face is recognized
+ * @author hopescheffert
+ *
+ */
 public class RecognizeServlet extends HttpServlet { 
 
 
@@ -19,9 +24,6 @@ public class RecognizeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
-		HTMLBuilder htmlBuilder = new HTMLBuilder(req.getRequestURI());
-		htmlBuilder.addToHead("Hey, we recognized you!");
-		out.write(htmlBuilder.build());
 	    out.write(new RecognizedPage(req.getRequestURI()).make());
 	}
 

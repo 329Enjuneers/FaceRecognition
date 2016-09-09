@@ -29,6 +29,10 @@
       <servlet-name>Enroll</servlet-name>
       <servlet-class>servlets.EnrollServlet</servlet-class>
     </servlet>
+     <servlet>
+      <servlet-name>RecognizeFace</servlet-name>
+      <servlet-class>servlets.RecognizeFaceServlet</servlet-class>
+    </servlet>
 
 
     <servlet-mapping>
@@ -49,12 +53,17 @@
     </servlet-mapping>
     <servlet-mapping>
       <servlet-name>Recognize</servlet-name>
-      <url-pattern>/rec</url-pattern>
+      <url-pattern>/recognize</url-pattern>
     </servlet-mapping>
 	<servlet-mapping>
       <servlet-name>Enroll</servlet-name>
       <url-pattern>/enroll</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+      <servlet-name>RecognizeFace</servlet-name>
+      <url-pattern>/recognizeFace</url-pattern>
+    </servlet-mapping>
+    
 <!-- [END standard_mappings] -->
 
 <!-- [START Objectify] -->

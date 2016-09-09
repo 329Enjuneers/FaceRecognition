@@ -1,6 +1,7 @@
 package kairos.requests;
 
 import java.io.IOException;
+
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,7 +21,7 @@ public class RecognizeRequest extends KairosRequest{
 	
 	private HTTPRequest request;
 	
-	private static final String requestUrl = BASE_URL + "/recognize";
+	private static final String requestUrl = BASE_URL + "/recognizeFace";
 	
 	public RecognizeRequest() {
 		imageUrl = null;

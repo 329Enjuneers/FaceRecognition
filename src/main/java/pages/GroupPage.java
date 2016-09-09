@@ -60,9 +60,8 @@ public class GroupPage {
 			String emailQuery = URLEncoder.encode(user.email, "UTF-8");
 			tabs.addElement("<a href='/enroll?email=" + emailQuery + "&groupName=" + groupQuery + "'>Enroll</a>");
 			tabs.addElement("<span style='border-right: 1px solid black; margin-left: .2em; margin-right: .3em;'></span>");
-			tabs.addElement("<a href='/recognize?email=" + emailQuery + "&groupName=" + groupQuery + "'>Recognize</a>");
+			tabs.addElement("<a href='/recognizeFace?email=" + emailQuery + "&groupName=" + groupQuery + "'>Recognize</a>");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		htmlBuilder.addToBody(tabs.toString());
@@ -74,6 +73,6 @@ public class GroupPage {
 	
 	private void addChildren() {
 		// TODO add children to the page
-		System.out.println("Num children: " + group.getNumChildren());
+		//System.out.println("Num children: " + group.getNumChildren());
 	}
  }
