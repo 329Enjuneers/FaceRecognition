@@ -18,7 +18,7 @@ public class HomeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
-	    out.write(new HomePage().make());
+	    out.write(new HomePage(req.getRequestURI()).make());
 	}
 	
 }

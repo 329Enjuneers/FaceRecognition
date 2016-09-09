@@ -40,9 +40,18 @@ public class FaceServlet extends HttpServlet {
 		String servingUrl = ImagesServiceFactory.getImagesService().getServingUrl(ServingUrlOptions.Builder.withBlobKey(blob));
 		System.out.println(servingUrl);
 		
+		// TODO
+		// 1. Get group name from this request
+		// 2. Get first name and last name from this request
+		// 3. Fetch person
+		// 4. Get persons subject id
+		// 5. Recognize face
+		
 		KairosApp kairos = new KairosApp();
-		kairos.enroll(servingUrl, "test-subject", "test-gallery");
-		HTMLBuilder htmlBuilder = new HTMLBuilder();
+//		kairos.enroll(servingUrl, "joe-testing", "test-gallery");
+		String subjectId = kairos.recognize(servingUrl, "test-gallery");
+		System.out.println("Subject id: " + subjectId);
+		HTMLBuilder htmlBuilder = new HTMLBuilder(req.getRequestURI());
 		htmlBuilder.addToBody("We're working on it");
 		out.write(htmlBuilder.build());
 	}

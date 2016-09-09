@@ -15,22 +15,28 @@ public class HomePage {
 
 	private HTMLBuilder htmlBuilder;
 	private User user;
-
-	public HomePage() {
-		htmlBuilder = new HTMLBuilder();
+	private String baseUrl;
+	
+	public HomePage(String baseUrl) {
+		htmlBuilder = new HTMLBuilder(baseUrl);
 		htmlBuilder.includeAppHeader = true;
 		user = User.getCurrentUser();
-
+		this.baseUrl = baseUrl;
 		// Test Kairos APIs on homepage.
-		// TODO: Following lines associated with kairos will be removed from here.
+		//TODO: Following lines associated with kairos will be removed from here.
 		KairosApp k = new KairosApp();
 		k.listGalleries();
 	}
-
-	public HomePage(User user) {
-		htmlBuilder = new HTMLBuilder();
+	
+	public HomePage(String baseUrl, User user) {
+		htmlBuilder = new HTMLBuilder(baseUrl);
 		htmlBuilder.includeAppHeader = true;
 		this.user = user;
+		this.baseUrl = baseUrl;
+		// Test Kairos APIs on homepage.
+		//TODO: Following lines associated with kairos will be removed from here.
+		KairosApp k = new KairosApp();
+		k.listGalleries();
 	}
 
 	public String make() {
@@ -48,7 +54,7 @@ public class HomePage {
 	private void addLogout() {
 		UserService userService = UserServiceFactory.getUserService();
 		htmlBuilder.addToBody("You are not logged in!");
-    	htmlBuilder.addToBody("Login <a href='" + userService.createLoginURL("/") + "'> here </a>");
+    	htmlBuilder.addToBody("Login <a href='" + userService.createLoginURL(baseUrl) + "'> here </a>");
 	}
 
 	private void setTitle() {

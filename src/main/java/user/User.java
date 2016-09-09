@@ -56,6 +56,10 @@ public class User{
 		return user;
 	}
 	
+	public static User get(String email) {
+		return ofy().load().type(User.class).filter("email", email).first().now();
+	}
+	
 	private static com.google.appengine.api.users.User getCurrentGoogleUser() {
 		UserService userService = UserServiceFactory.getUserService();
 		return userService.getCurrentUser();

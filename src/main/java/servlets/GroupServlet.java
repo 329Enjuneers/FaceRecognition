@@ -23,7 +23,7 @@ public class GroupServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		
 		Group group = Group.getOrInsert(groupName, email);
-		out.write(new GroupPage(group).make());
+		out.write(new GroupPage(req.getRequestURI(), group).make());
 	}
 
 	@Override
@@ -35,6 +35,6 @@ public class GroupServlet extends HttpServlet {
 		User user = User.getCurrentUser();
 		Group group = Group.getOrInsert(groupName, user.email);
 		
-		out.write(new GroupPage(group).make());
+		out.write(new GroupPage(req.getRequestURI(), group).make());
 	}
 }
