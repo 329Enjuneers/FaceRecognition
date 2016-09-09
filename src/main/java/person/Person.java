@@ -1,5 +1,6 @@
 package person;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Person {
@@ -7,6 +8,7 @@ public class Person {
 	public String lastName;
 	public String notes;
 	public String servingUrl;
+	public Date timeLastSeen;
 	private String subjectId;
 	
 	public Person() {}
@@ -17,6 +19,7 @@ public class Person {
 		this.servingUrl = null;
 		this.notes = null;
 		this.subjectId = makeSubjectId();
+		this.timeLastSeen = new Date();
 	}
 	
 	public Person(String firstName, String lastName, String servingUrl) {
