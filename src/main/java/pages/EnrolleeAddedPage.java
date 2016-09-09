@@ -7,9 +7,9 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 import group.Group;
+import group.Member;
 import pages.html_builder.Div;
 import pages.html_builder.HTMLBuilder;
-import person.Person;
 import user.User;
 
 public class EnrolleeAddedPage {
@@ -17,9 +17,9 @@ public class EnrolleeAddedPage {
 	private User user;
 	private Group group;
 	private String baseUrl;
-	private Person enrollee;
+	private Member enrollee;
 	
-	public EnrolleeAddedPage(String baseUrl, Group group, Person enrollee) {
+	public EnrolleeAddedPage(String baseUrl, Group group, Member enrollee) {
 		htmlBuilder = new HTMLBuilder(baseUrl);
 		htmlBuilder.includeAppHeader = true;
 		user = User.getCurrentUser();
@@ -54,7 +54,7 @@ public class EnrolleeAddedPage {
 	}
 	
 	private void addHeader() {
-		htmlBuilder.addToBody("<h4>" + group.name + "</h4>");
+		addGroupTitle();
 		Div tabs = new Div(); 
 		try {
 			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
@@ -66,6 +66,17 @@ public class EnrolleeAddedPage {
 			e.printStackTrace();
 		}
 		htmlBuilder.addToBody(tabs.toString());
+	}
+	
+	private void addGroupTitle() {
+		try {
+			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
+			String emailQuery = URLEncoder.encode(user.email, "UTF-8");
+			htmlBuilder.addToBody("<h4><a href='/group?email=" + emailQuery + "&name=" + groupQuery + "'>" + group.name + "</a></h4>");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void addHorizontalRule() {

@@ -7,6 +7,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 import group.Group;
+import group.Member;
 import pages.html_builder.Div;
 import pages.html_builder.HTMLBuilder;
 import user.User;
@@ -51,21 +52,26 @@ public class GroupPage {
 	}
 	
 	private void addHeader() {
-		htmlBuilder.addToBody("<h4>" + group.name + "</h4>");
+		addGroupTitle();
 		Div tabs = new Div(); 
 		try {
-			// TODO build servlets
-			// TODO build tab class or something
 			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
-			String emailQuery = URLEncoder.encode(user.email, "UTF-8");
-			tabs.addElement("<a href='/enroll?email=" + emailQuery + "&groupName=" + groupQuery + "'>Enroll</a>");
+			tabs.addElement("<a href='/enroll?groupName=" + groupQuery + "'>Enroll</a>");
 			tabs.addElement("<span style='border-right: 1px solid black; margin-left: .2em; margin-right: .3em;'></span>");
-			tabs.addElement("<a href='/recognize?email=" + emailQuery + "&groupName=" + groupQuery + "'>Recognize</a>");
+			tabs.addElement("<a href='/recognize?groupName=" + groupQuery + "'>Recognize</a>");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		htmlBuilder.addToBody(tabs.toString());
+	}
+	
+	private void addGroupTitle() {
+		try {
+			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
+			htmlBuilder.addToBody("<h4><a href='/group?name=" + groupQuery + "'>" + group.name + "</a></h4>");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void addHorizontalRule() {
@@ -73,7 +79,25 @@ public class GroupPage {
 	}
 	
 	private void addChildren() {
-		// TODO add children to the page
-		System.out.println("Num children: " + group.getNumChildren());
+		htmlBuilder.addToBody("<ul>");
+		for (Member member : group.getMembers()) {
+			htmlBuilder.addToBody(getMemberLink(member));
+		}
+		htmlBuilder.addToBody("</ul>");
+	}
+	
+	private String getMemberLink(Member member) {
+		return "<li><a href='/member" + getMemberLinkQuery(member) + "'>" + member.getFullName() + "</a></li>";
+	}
+	
+	private String getMemberLinkQuery(Member member) {
+		try {
+			String groupQuery = "?groupName=" + URLEncoder.encode(group.name, "UTF-8");
+			String subjectIdQuery = "&subjectId=" + URLEncoder.encode(member.getSubjectId(), "UTF-8");
+			return groupQuery + subjectIdQuery;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
  }

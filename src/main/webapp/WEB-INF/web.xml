@@ -25,10 +25,14 @@
       <servlet-name>Recognize</servlet-name>
       <servlet-class>servlets.RecognizeServlet</servlet-class>
     </servlet>
-	<servlet>
+	   <servlet>
       <servlet-name>Enroll</servlet-name>
       <servlet-class>servlets.EnrollServlet</servlet-class>
     </servlet>
+    <servlet>
+     <servlet-name>GroupMember</servlet-name>
+     <servlet-class>servlets.GroupMemberServlet</servlet-class>
+   </servlet>
 
 
     <servlet-mapping>
@@ -54,7 +58,11 @@
 	<servlet-mapping>
       <servlet-name>Enroll</servlet-name>
       <url-pattern>/enroll</url-pattern>
-    </servlet-mapping>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>GroupMember</servlet-name>
+      <url-pattern>/member</url-pattern>
+  </servlet-mapping>
 <!-- [END standard_mappings] -->
 
 <!-- [START Objectify] -->

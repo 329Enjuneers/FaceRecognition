@@ -1,9 +1,9 @@
-package person;
+package group;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class Person {
+public class Member {
 	public String firstName;
 	public String lastName;
 	public String notes;
@@ -11,9 +11,9 @@ public class Person {
 	public Date timeLastSeen;
 	private String subjectId;
 	
-	public Person() {}
+	public Member() {}
 
-	public Person(String firstName, String lastName) {
+	public Member(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.servingUrl = null;
@@ -22,12 +22,17 @@ public class Person {
 		this.timeLastSeen = new Date();
 	}
 	
-	public Person(String firstName, String lastName, String servingUrl) {
+	public Member(String firstName, String lastName, String servingUrl) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.servingUrl = servingUrl;
 		this.notes = null;
 		this.subjectId = makeSubjectId();
+		this.timeLastSeen = new Date();
+	}
+	
+	public String getFullName() {
+		return firstName + " " + lastName;
 	}
 	
 	public String getSubjectId() {
