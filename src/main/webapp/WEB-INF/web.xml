@@ -22,6 +22,10 @@
       <servlet-class>servlets.GroupServlet</servlet-class>
     </servlet>
     <servlet>
+      <servlet-name>Recognize</servlet-name>
+      <servlet-class>servlets.RecognizeServlet</servlet-class>
+    </servlet>
+	<servlet>
       <servlet-name>Enroll</servlet-name>
       <servlet-class>servlets.EnrollServlet</servlet-class>
     </servlet>
@@ -44,6 +48,10 @@
       <url-pattern>/group</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+      <servlet-name>Recognize</servlet-name>
+      <url-pattern>/rec</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
       <servlet-name>Enroll</servlet-name>
       <url-pattern>/enroll</url-pattern>
     </servlet-mapping>
