@@ -3,13 +3,11 @@ package group;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
-import person.Person;
 import user.User;
 
 @Entity
@@ -18,14 +16,16 @@ public class Group {
 	@Index public String ownerEmail;
 	@Index public String name;
 	
-	private ArrayList<Person> children;
+	private ArrayList<Member> members;
 	
-	public Group() {}
+	public Group() {
+		members = new ArrayList<Member>();
+	}
 	
 	public Group(String name, String ownerEmail) {
 		this.name = name;
 		this.ownerEmail = ownerEmail;
-		this.children = new ArrayList<Person>();
+		this.members = new ArrayList<Member>();
 	}
 	
 	public static Iterable<Group> fetchByUser(String ownerEmail) {
@@ -53,29 +53,26 @@ public class Group {
 		return ofy().load().type(Group.class).filter("ownerEmail", ownerEmail).filter("name", name).first().now();
 	}
 	
-	public void addChild(Person person) {
-		if (children == null) {
-			children = new ArrayList<Person>();
-		}
-		children.add(person);
+	public void addMember(Member member) {
+		members.add(member);
 		save();
 	}
 	
-	public Person getChild(String subjectId) {
-		for (Person person : children) {
-			if (person.getSubjectId().equals(subjectId)) {
-				return person;
+	public Member getMember(String subjectId) {
+		for (Member member : members) {
+			if (member.getSubjectId().equals(subjectId)) {
+				return member;
 			}
 		}
 		return null;
 	}
 	
-	public Iterator<Person> getChildren() {
-		return children.iterator();
+	public Iterable<Member> getMembers() {
+		return (Iterable<Member>) members;
 	}
 	
-	public int getNumChildren() {
-		return children.size();
+	public int getNumMembers() {
+		return members.size();
 	}
 	
 	public void save() {

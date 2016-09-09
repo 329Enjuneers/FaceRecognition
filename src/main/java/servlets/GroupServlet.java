@@ -16,13 +16,13 @@ public class GroupServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String email = req.getParameter("email");
 		String groupName = req.getParameter("name");
+		User user = User.getCurrentUser();
 		
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
 		
-		Group group = Group.getOrInsert(groupName, email);
+		Group group = Group.getOrInsert(groupName, user.email);
 		out.write(new GroupPage(req.getRequestURI(), group).make());
 	}
 
