@@ -16,8 +16,8 @@ import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 
 import group.Group;
-import kairos.KairosApp;
 import pages.EnrollPage;
+import pages.EnrolleeAddedPage;
 import person.Person;
 
 public class EnrollServlet extends HttpServlet {
@@ -66,22 +66,11 @@ public class EnrollServlet extends HttpServlet {
 		String servingUrl = getServingUrl(blobKeys.get(0));
 		Person person = new Person(firstName, lastName, servingUrl);
 		group.addChild(person);
-		System.out.println("first:" + firstName);
-		System.out.println("last: " + lastName);
-		System.out.println("num group children: " + group.getNumChildren());
-		System.out.println("serving url: " + servingUrl);
-		System.out.println("id " + person.getSubjectId());
-
-		// TODO create page 
 		
 //		KairosApp kairos = new KairosApp();
 //		kairos.enroll(person.servingUrl, person.getSubjectId(), groupName);
-		
-//		PrintWriter out = resp.getWriter();
-//		resp.setContentType("text/html");
-//		
-//		Group group = Group.getOrInsert(groupName, email);
-//		out.write(new EnrollPage(req.getRequestURI(), group).make());
+
+		out.write(new EnrolleeAddedPage(req.getRequestURI(), group, person).make());
 	}
 	
 	private String getServingUrl(BlobKey blob) {
