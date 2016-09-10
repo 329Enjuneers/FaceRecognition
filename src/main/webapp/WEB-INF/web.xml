@@ -62,11 +62,10 @@
 	<servlet-mapping>
       <servlet-name>Enroll</servlet-name>
       <url-pattern>/enroll</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+  </servlet-mapping>
+  <servlet-mapping>
       <servlet-name>RecognizeFace</servlet-name>
       <url-pattern>/recognizeFace</url-pattern>
-    </servlet-mapping>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>GroupMember</servlet-name>
