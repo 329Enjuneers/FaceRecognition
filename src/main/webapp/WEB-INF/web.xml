@@ -21,6 +21,22 @@
       <servlet-name>Group</servlet-name>
       <servlet-class>servlets.GroupServlet</servlet-class>
     </servlet>
+    <servlet>
+      <servlet-name>Recognize</servlet-name>
+      <servlet-class>servlets.RecognizeServlet</servlet-class>
+    </servlet>
+	   <servlet>
+      <servlet-name>Enroll</servlet-name>
+      <servlet-class>servlets.EnrollServlet</servlet-class>
+    </servlet>
+     <servlet>
+      <servlet-name>RecognizeFace</servlet-name>
+      <servlet-class>servlets.RecognizeFaceServlet</servlet-class>
+    </servlet>
+    <servlet>
+     <servlet-name>GroupMember</servlet-name>
+     <servlet-class>servlets.GroupMemberServlet</servlet-class>
+   </servlet>
 
 
     <servlet-mapping>
@@ -39,6 +55,22 @@
       <servlet-name>Group</servlet-name>
       <url-pattern>/group</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+      <servlet-name>Recognize</servlet-name>
+      <url-pattern>/recognize</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+      <servlet-name>Enroll</servlet-name>
+      <url-pattern>/enroll</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>RecognizeFace</servlet-name>
+      <url-pattern>/recognizeFace</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>GroupMember</servlet-name>
+      <url-pattern>/member</url-pattern>
+  </servlet-mapping>
 <!-- [END standard_mappings] -->
 
 <!-- [START Objectify] -->

@@ -12,18 +12,20 @@ import pages.html_builder.Div;
 import pages.html_builder.HTMLBuilder;
 import user.User;
 
-public class GroupPage {
+public class EnrolleeAddedPage {
 	private HTMLBuilder htmlBuilder;
 	private User user;
 	private Group group;
 	private String baseUrl;
+	private Member enrollee;
 	
-	public GroupPage(String baseUrl, Group group) {
+	public EnrolleeAddedPage(String baseUrl, Group group, Member enrollee) {
 		htmlBuilder = new HTMLBuilder(baseUrl);
 		htmlBuilder.includeAppHeader = true;
 		user = User.getCurrentUser();
 		this.group = group;
 		this.baseUrl = baseUrl;
+		this.enrollee = enrollee;
 	}
 	
 	public String make() {
@@ -32,16 +34,16 @@ public class GroupPage {
 			addLogout();
 			return htmlBuilder.build();
 		}
-		
 		addHeader();
 		addHorizontalRule();
-		addChildren();
+		addEnrolleeDiv();
+		
 		return htmlBuilder.build();
 	}
 	
 	private void setTitle() {
 		try {
-			htmlBuilder.setTitle(group.name);
+			htmlBuilder.setTitle("Enroll in " + group.name);
 		} catch (Exception e) {}
 	}
 	
@@ -56,10 +58,10 @@ public class GroupPage {
 		Div tabs = new Div(); 
 		try {
 			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
-			tabs.addElement("<a href='/enroll?groupName=" + groupQuery + "'>Enroll</a>");
+			String emailQuery = URLEncoder.encode(user.email, "UTF-8");
+			tabs.addElement("<a href='/enroll?email=" + emailQuery + "&groupName=" + groupQuery + "'>Enroll</a>");
 			tabs.addElement("<span style='border-right: 1px solid black; margin-left: .2em; margin-right: .3em;'></span>");
-			tabs.addElement("<a href='/recognizeFace?groupName=" + groupQuery + "'>Recognize</a>");
-
+			tabs.addElement("<a href='/recognize?email=" + emailQuery + "&groupName=" + groupQuery + "'>Recognize</a>");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -69,8 +71,10 @@ public class GroupPage {
 	private void addGroupTitle() {
 		try {
 			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
-			htmlBuilder.addToBody("<h4><a href='/group?name=" + groupQuery + "'>" + group.name + "</a></h4>");
+			String emailQuery = URLEncoder.encode(user.email, "UTF-8");
+			htmlBuilder.addToBody("<h4><a href='/group?email=" + emailQuery + "&name=" + groupQuery + "'>" + group.name + "</a></h4>");
 		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -79,28 +83,22 @@ public class GroupPage {
 		htmlBuilder.addToBody("<hr>");
 	}
 	
-	private void addChildren() {
-		// TODO add children to the page
-		//System.out.println("Num children: " + group.getNumChildren());
-		htmlBuilder.addToBody("<ul>");
-		for (Member member : group.getMembers()) {
-			htmlBuilder.addToBody(getMemberLink(member));
-		}
-		htmlBuilder.addToBody("</ul>");
+	private void addEnrolleeDiv() {
+		Div div = new Div();
+		div.addElement(getSuccessMessage());
+		div.addElement(getImageDiv());
+		htmlBuilder.addToBody(div.toString());
 	}
 	
-	private String getMemberLink(Member member) {
-		return "<li><a href='/member" + getMemberLinkQuery(member) + "'>" + member.getFullName() + "</a></li>";
+	private String getSuccessMessage() {
+		Div div = new Div();
+		div.addElement("<h4>" + enrollee.firstName + " " + enrollee.lastName + " successfully added to group \"" + group.name + "\"</h4>");
+		return div.toString();
 	}
 	
-	private String getMemberLinkQuery(Member member) {
-		try {
-			String groupQuery = "?groupName=" + URLEncoder.encode(group.name, "UTF-8");
-			String subjectIdQuery = "&subjectId=" + URLEncoder.encode(member.getSubjectId(), "UTF-8");
-			return groupQuery + subjectIdQuery;
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return null;
+	private String getImageDiv() {
+		Div div = new Div();
+		div.addElement("<img src='" + enrollee.servingUrl + "'>");
+		return div.toString();
 	}
- }
+}
