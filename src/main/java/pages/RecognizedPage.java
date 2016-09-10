@@ -78,9 +78,9 @@ public class RecognizedPage {
 		htmlBuilder.addToBody("<ul>");
 	    for(Group group : Group.fetchByUser(user.email)) {
 	    	try {
-				String emailQuery = URLEncoder.encode(user.email, "UTF-8");
+				//String emailQuery = URLEncoder.encode(user.email, "UTF-8");
 				String groupQuery = URLEncoder.encode(group.name, "UTF-8");
-				htmlBuilder.addToBody("<li><a href='/group?email=" + emailQuery + "&name=" + groupQuery + "'>" + group.name + "</a></li>");
+				htmlBuilder.addToBody("<li><a href='/group?name=" + groupQuery + "'>" + group.name + "</a></li>");
 			} catch (UnsupportedEncodingException e) {}
 	    }
 	    htmlBuilder.addToBody("</ul>");

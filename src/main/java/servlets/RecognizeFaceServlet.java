@@ -30,14 +30,14 @@ public class RecognizeFaceServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String email = req.getParameter("email");
-		String groupName = req.getParameter("name");
+		//String email = req.getParameter("email");
+		String groupName = req.getParameter("groupName");
 		
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
 		User user = User.getCurrentUser();
 
-		Group group = Group.getOrInsert(groupName, email);
+		Group group = Group.getOrInsert(groupName, user.email);
 		out.write(new RecognizeFacePage(user, req.getRequestURI(), group).make());
 	}
 	

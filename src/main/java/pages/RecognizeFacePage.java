@@ -28,6 +28,10 @@ import user.User;
  * which should send that image to kairos. Kairos will tell us who is in that image. 
  * If we recognize them, we will send back a page that has the member's first name, last name, notes, and image. 
  * If we do not recognize them, we will send back a page that says something like "Sorry, we could not recognize that person."
+ * 
+ * User has access to the group page, enroll page, and recognize page? 
+ * You can check out the enrollee page for examples on how to do this (specifically, addHeader). 
+ * I think you will need to change the name of a form input
  */
 public class RecognizeFacePage {
 
@@ -55,13 +59,14 @@ public class RecognizeFacePage {
 
 	public String make() {
 	    setTitle();
-	    addHeader();
-	    addSubmitDiv();
-	    addRecognizeFaceForm();
+	   
 	    if (user == null) {
 	    	addLogout();
 	    	return htmlBuilder.build();
 	    }
+	    addHeader();
+	    addSubmitDiv();
+	    addRecognizeFaceForm();
 	    return htmlBuilder.build();
 	}
 	
@@ -103,9 +108,9 @@ public class RecognizeFacePage {
 		Div tabs = new Div(); 
 		try {
 			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
-			tabs.addElement("<a href='/face?groupName=" + groupQuery + "'>Enroll</a>");
+			tabs.addElement("<a href='/enroll?groupName=" + groupQuery + "'>Enroll</a>");
 			tabs.addElement("<span style='border-right: 1px solid black; margin-left: .2em; margin-right: .3em;'></span>");
-			tabs.addElement("<a href='/recognize?groupName=" + groupQuery + "'>Recognize</a>");
+			tabs.addElement("<a href='/recognizeFace?groupName=" + groupQuery + "'>Recognize</a>");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -116,28 +121,12 @@ public class RecognizeFacePage {
 		try {
 			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
 			htmlBuilder.addToBody("<h4><a href='/group?name=" + groupQuery + "'>" + group.name + "</a></h4>");
+
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-//	public void addPictureInputForm()
-//	{
-//		//TODO user selects picture to upload to recognize
-//
-//		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-//		Form form = new Form();
-//		
-//		form.addProperty("method", "POST");
-//		form.addProperty("enctype", "multipart/form-data");
-//		form.addProperty("action", blobstoreService.createUploadUrl("/recognizeFace"));
-//		
-//		form.addElement(addImageDiv());
-//		form.addElement(addSubmitDiv());
-//		htmlBuilder.addToBody(form.toString());
-//		
-//	}
+
 
 	private void addLogout() {
 		UserService userService = UserServiceFactory.getUserService();
