@@ -15,9 +15,6 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 
-import kairos.KairosApp;
-import pages.html_builder.HTMLBuilder;
-
 public class FaceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -47,13 +44,11 @@ public class FaceServlet extends HttpServlet {
 		// 4. Get persons subject id
 		// 5. Recognize face
 		
-		KairosApp kairos = new KairosApp();
-//		kairos.enroll(servingUrl, "joe-testing", "test-gallery");
-		String subjectId = kairos.recognize(servingUrl, "test-gallery");
-		System.out.println("Subject id: " + subjectId);
-		HTMLBuilder htmlBuilder = new HTMLBuilder(req.getRequestURI());
-		htmlBuilder.addToBody("We're working on it");
-		out.write(htmlBuilder.build());
+//		KairosApp kairos = new KairosApp();
+//		String subjectId = kairos.recognize(servingUrl, "test-gallery");
+//		System.out.println("Subject id: " + subjectId);
+		// TODO uncomment following line once we have group
+//		resp.sendRedirect("/member?groupName=" + group.name + "&subjectId=" + subjectId);
 	}
 
 }
