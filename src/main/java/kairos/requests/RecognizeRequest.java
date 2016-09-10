@@ -21,7 +21,7 @@ public class RecognizeRequest extends KairosRequest{
 	
 	private HTTPRequest request;
 	
-	private static final String requestUrl = BASE_URL + "/recognizeFace";
+	private static final String requestUrl = BASE_URL + "/recognize";
 	
 	public RecognizeRequest() {
 		imageUrl = null;

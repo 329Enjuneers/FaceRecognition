@@ -62,11 +62,7 @@ public class RecognizeFaceServlet extends HttpServlet {
 		User user = User.getCurrentUser();
 		Group group = Group.getOrInsert(groupName, user.email);
 		
-		
-
 		out.write(new RecognizeFacePage(user, req.getRequestURI(), group).make());
-
-		
 	}
 
 }
