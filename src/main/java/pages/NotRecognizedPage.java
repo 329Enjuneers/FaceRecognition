@@ -42,7 +42,7 @@ public class NotRecognizedPage
 	
 	
 	private void addNewFaceForm() {
-		htmlBuilder.addToBody("<h3>I'm sorry, we don't recognize any faces!</h3>");
+		htmlBuilder.addToBody("<h3>I'm sorry, we don't recognize this face!</h3>");
 		htmlBuilder.addToBody("<p>Would you like to add this face to our database?</p>");
 		Form form = new Form();
 		form.addProperty("action", "/face"); //servlet for adding a new face to database

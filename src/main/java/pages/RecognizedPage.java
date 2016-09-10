@@ -11,6 +11,13 @@ import group.Group;
 import pages.html_builder.HTMLBuilder;
 import user.User;
 
+
+/**
+ * for when user inputs a picture and the face is recognized
+ * servlet is /recognize
+ * @author hopescheffert
+ *
+ */
 public class RecognizedPage {
 
 
@@ -18,6 +25,9 @@ public class RecognizedPage {
 	private User user;
 	private String baseUrl;
 
+	//TODO 
+	//need to display information about the person to group leader
+	
 
 	public RecognizedPage(String baseUrl) {
 		htmlBuilder = new HTMLBuilder(baseUrl);
@@ -34,16 +44,9 @@ public class RecognizedPage {
 		this.baseUrl = baseUrl;
 	}
 
-	public void uploadPicture()
-	{
-		
-		//TODO upload a picture to the database
-		
-		
-		
-	}
 	public String make() {
 	    setTitle();
+		htmlBuilder.addToHead("Hey, we recognized you!");
 	    if (user == null) {
 	    	addLogout();
 	    	return htmlBuilder.build();
@@ -65,6 +68,7 @@ public class RecognizedPage {
 		} catch (Exception e) {}
 	}
 
+	
 
 	private void addHorizontalRule() {
 		htmlBuilder.addToBody("<hr>");

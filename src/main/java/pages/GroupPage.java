@@ -58,7 +58,8 @@ public class GroupPage {
 			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
 			tabs.addElement("<a href='/enroll?groupName=" + groupQuery + "'>Enroll</a>");
 			tabs.addElement("<span style='border-right: 1px solid black; margin-left: .2em; margin-right: .3em;'></span>");
-			tabs.addElement("<a href='/recognize?groupName=" + groupQuery + "'>Recognize</a>");
+			tabs.addElement("<a href='/recognizeFace?groupName=" + groupQuery + "'>Recognize</a>");
+
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -79,6 +80,8 @@ public class GroupPage {
 	}
 	
 	private void addChildren() {
+		// TODO add children to the page
+		//System.out.println("Num children: " + group.getNumChildren());
 		htmlBuilder.addToBody("<ul>");
 		for (Member member : group.getMembers()) {
 			htmlBuilder.addToBody(getMemberLink(member));
