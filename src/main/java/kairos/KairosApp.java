@@ -21,6 +21,7 @@ import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 
 import kairos.requests.EnrollRequest;
 import kairos.requests.RecognizeRequest;
+import kairos.requests.ListGalleryRequest;
 
 public class KairosApp {
 	private static final String BASE_URL = "https://api.kairos.com";
@@ -81,58 +82,17 @@ public class KairosApp {
 	 * Can be used to provide list of groups to user.
 	 * @return JSONArray - Returns a JSONArray containg all groups as stored in Kairos database.
 	 */
-	public org.json.JSONArray listGalleries() {
-		// TODO implement ListGalleryRequest
-
-		boolean error = false;
-		// Kairos URL to make the request to.
-		String requestURL = BASE_URL + "/gallery/list_all";
-		// Start generating the requeust here.
-		HTTPRequest request;
-		JSONArray galleries = null;
+	public JSONArray listGalleries() {
+		ListGalleryRequest request = new ListGalleryRequest();
 		try {
-			// Set headers for the request.
-			request = new HTTPRequest(new URL(requestURL), HTTPMethod.POST);
-	    request.setHeader(new HTTPHeader("app_id", APP_ID));
-	    request.setHeader(new HTTPHeader("app_key", APP_KEY));
-			URLFetchService url_service = URLFetchServiceFactory.getURLFetchService();
-	    HTTPResponse response = url_service.fetch(request);
-	    if (response.getResponseCode() != 200) {
-	        throw new IOException(new String(response.getContent()));
-	    }
-	    String content = new String(response.getContent());
-			JSONObject result = new JSONObject(content);
-			galleries = (JSONArray) result.get("gallery_ids");
-			// System.out.println(galleries);
-			// Return JSONArray of all galleries fetched from Kairos.
-			return galleries;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			log.warning(e.getMessage());
-			error = true;
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			log.warning(e.getMessage());
-			error = true;
-		} catch (IOException e) {
-			e.printStackTrace();
-			log.warning(e.getMessage());
-			error = true;
-		} catch(org.json.JSONException e) {
-			e.printStackTrace();
-			log.warning(e.getMessage());
-			error = true;
-		}
-
-		// Check if an error occured while making Kairos database request.
-		if(error){
+			JSONObject json = request.send();
+			if (json != null) {
+				return new JSONArray(json.get("gallery_ids"));
+			}
+		} catch (IOException | JSONException e) {
 			log.warning("Something went wrong while processing the request please try again.");
-			return null;
-		}else{
-			return galleries;
 		}
+		return null;
 	}
 
 	private String getSubjectId(JSONObject json) throws JSONException {
