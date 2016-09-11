@@ -43,8 +43,8 @@ public class EnrollRequest extends KairosRequest {
 		if (response.getResponseCode() != 200) {
 			throw new IOException(new String(response.getContent()));
 		}
-		log.info("Received the following content from Kairos:");
-		log.info(new String(response.getContent()));
+		log.warning("Received the following content from Kairos:");
+		log.warning(new String(response.getContent()));
 		try {
 			return new JSONObject(new String(response.getContent()));
 		} catch (JSONException e) {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +16,10 @@ import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 
+import kairos.KairosApp;
+
 public class RecognizeRequest extends KairosRequest{
+	private static final Logger log = Logger.getLogger(KairosApp.class.getName());
 	public String imageUrl;
 	public String gallery;
 	
@@ -49,6 +53,8 @@ public class RecognizeRequest extends KairosRequest{
 	}
 	
 	private boolean allDataSet() {
+		log.warning(imageUrl);
+		log.warning(gallery);
 		return imageUrl != null && gallery != null;
 	}
 	

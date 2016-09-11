@@ -13,12 +13,12 @@ public class User{
 	@Id private Long id;
 	@Index public String email;
 	public String nickname;
-	
+
 	public User() {
 		this.email = null;
 		this.nickname = null;
 	}
-	
+
 	public User(String email) {
 		this.email = email;
 		this.nickname = null;
@@ -27,39 +27,35 @@ public class User{
 		this.email = email;
 		this.nickname = nickname;
 	}
-	
+
 	public static User getCurrentUser() {
 		com.google.appengine.api.users.User googleUser = getCurrentGoogleUser();
 		if (googleUser == null) {
 			return null;
 		}
-		
+
 		User user = getOrInsert(googleUser.getEmail());
 		if (user.nickname == null) {
 			user.nickname = googleUser.getNickname();
 			ofy().save().entity(user).now();
 		}
-		
+
 		return user;
 	}
-	
+
 	public static User getOrInsert(String email) {
 		User user = ofy().load().type(User.class).filter("email", email).first().now();
 		if (user == null) {
-			System.out.println("Created new user!");
 			user = new User(email);
 			ofy().save().entity(user).now();
 		}
-		else {
-			System.out.println("Fetched old user!");
-		}
 		return user;
 	}
-	
+
 	public static User get(String email) {
 		return ofy().load().type(User.class).filter("email", email).first().now();
 	}
-	
+
 	private static com.google.appengine.api.users.User getCurrentGoogleUser() {
 		UserService userService = UserServiceFactory.getUserService();
 		return userService.getCurrentUser();

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import pages.HomePage;
-import pages.html_builder.HTMLBuilder;
 
 public class HomeServlet extends HttpServlet {
 

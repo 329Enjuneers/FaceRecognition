@@ -17,6 +17,7 @@ import com.google.appengine.api.images.ServingUrlOptions;
 
 import group.Group;
 import group.Member;
+import kairos.KairosApp;
 import pages.EnrollPage;
 import pages.EnrolleeAddedPage;
 import user.User;
@@ -68,8 +69,8 @@ public class EnrollServlet extends HttpServlet {
 		Member member = new Member(firstName, lastName, servingUrl);
 		group.addMember(member);
 		
-//		KairosApp kairos = new KairosApp();
-//		kairos.enroll(person.servingUrl, person.getSubjectId(), groupName);
+		KairosApp kairos = new KairosApp();
+		kairos.enroll(member.servingUrl, member.getSubjectId(), groupName);
 
 		out.write(new EnrolleeAddedPage(req.getRequestURI(), group, member).make());
 	}
