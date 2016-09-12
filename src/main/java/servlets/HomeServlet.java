@@ -23,9 +23,13 @@ public class HomeServlet extends HttpServlet {
 		if(req.getParameterMap().containsKey("name") && req.getParameterMap().containsKey("action")){
 			User user = User.getCurrentUser();
 			Group group = Group.get(req.getParameter("name"),user.email);
-			group.delete();
+			if(group != null){
+				group.delete();
+			}
+			out.write(new HomePage("localhost:8080").make());
+		}else{
+			out.write(new HomePage(req.getRequestURI()).make());
 		}
-    out.write(new HomePage(req.getRequestURI()).make());
 	}
 
 }
