@@ -26,10 +26,8 @@ public class HomeServlet extends HttpServlet {
 			if(group != null){
 				group.delete();
 			}
-			out.write(new HomePage("localhost:8080").make());
-		}else{
-			out.write(new HomePage(req.getRequestURI()).make());
 		}
+		out.write(new HomePage(req.getRequestURI()).make());
 	}
 
 }
