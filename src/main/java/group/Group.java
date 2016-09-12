@@ -15,29 +15,29 @@ public class Group {
 	@Id private Long id;
 	@Index public String ownerEmail;
 	@Index public String name;
-	
+
 	private ArrayList<Member> members;
-	
+
 	public Group() {
 		members = new ArrayList<Member>();
 	}
-	
+
 	public Group(String name, String ownerEmail) {
 		this.name = name;
 		this.ownerEmail = ownerEmail;
 		this.members = new ArrayList<Member>();
 	}
-	
+
 	public static Iterable<Group> fetchByUser(String ownerEmail) {
 		return ofy().load().type(Group.class).filter("ownerEmail", ownerEmail).iterable();
 	}
-	
+
 	public static Group getOrInsert(String name, String ownerEmail) {
 		User user = User.get(ownerEmail);
 		if (user == null) {
 			return null;
 		}
-		
+
 		Group group = Group.get(name, ownerEmail);
 		if (group == null) {
 			group = new Group(name, ownerEmail);
@@ -48,16 +48,16 @@ public class Group {
 		}
 		return group;
 	}
-	
+
 	public static Group get(String name, String ownerEmail) {
 		return ofy().load().type(Group.class).filter("ownerEmail", ownerEmail).filter("name", name).first().now();
 	}
-	
+
 	public void addMember(Member member) {
 		members.add(member);
 		save();
 	}
-	
+
 	public Member getMember(String subjectId) {
 		for (Member member : members) {
 			if (member.getSubjectId().equals(subjectId)) {
@@ -66,16 +66,20 @@ public class Group {
 		}
 		return null;
 	}
-	
+
 	public Iterable<Member> getMembers() {
 		return (Iterable<Member>) members;
 	}
-	
+
 	public int getNumMembers() {
 		return members.size();
 	}
-	
+
 	public void save() {
 		ofy().save().entity(this).now();
+	}
+
+	public void delete() {
+		ofy().delete().entity(this).now();
 	}
 }

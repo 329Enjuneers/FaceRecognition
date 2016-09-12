@@ -9,13 +9,13 @@ import user.User;
 
 public class HTMLBuilder {
   public boolean includeAppHeader;
-  
+
   private ArrayList<String> body;
   private ArrayList<String> head;
   private ArrayList<String> scripts;
   private boolean headIsSet;
   private String baseUrl;
-  
+
 
   public HTMLBuilder(String baseUrl) {
       body = new ArrayList<String>();
@@ -28,14 +28,14 @@ public class HTMLBuilder {
 
   public String build() {
     StringBuilder str = new StringBuilder();
-    str.append("<html>");
+    str.append("<!DOCTYPE html><html>");
     str.append(buildHead());
     str.append(buildBody());
     str.append(buildScripts());
     str.append("</html>");
     return str.toString();
   }
-  
+
   public void addForm(Form form) {
 	  body.add(form.toString());
   }
@@ -63,7 +63,7 @@ public class HTMLBuilder {
   public String getNavigationBar() {
     return "";
   }
-  
+
   private String buildHead() {
 	  StringBuilder str = new StringBuilder();
 	  str.append("<head>");
@@ -73,7 +73,7 @@ public class HTMLBuilder {
 	  str.append("</head>");
 	  return str.toString();
   }
-  
+
   private String buildBody() {
 	  StringBuilder str = new StringBuilder();
 	  str.append("<body>");
@@ -86,7 +86,7 @@ public class HTMLBuilder {
 	  str.append("</body>");
 	  return str.toString();
   }
-  
+
   private String buildScripts() {
 	  StringBuilder str = new StringBuilder();
 	  for (String line : scripts) {
@@ -94,7 +94,7 @@ public class HTMLBuilder {
 	  }
 	  return str.toString();
   }
-  
+
   private String getAppHeader() {
 	  User user = User.getCurrentUser();
 	  if (user == null) {
@@ -104,7 +104,7 @@ public class HTMLBuilder {
 	  Div div = new Div();
 	  div.addElement("<h4 style='display: inline'>Welcome, " + user.nickname + "</h4>");
       div.addElement("<span style='float: right'>Logout <a href='" + userService.createLogoutURL(baseUrl) + "'> here </a></span>");
-      
+
       Div tabs = new Div();
       tabs.addElement("<a href='/'>Home</a>");
       String divString = div.toString();

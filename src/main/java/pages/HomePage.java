@@ -41,16 +41,16 @@ public class HomePage extends Page {
 	    newGroupForm.addElement("<button type='submit'>Add Group</button>");
 	    htmlBuilder.addToBody(newGroupForm.toString());
 	}
-	
+
 	private void addOwnedGroups() {
 		htmlBuilder.addToBody("<ul>");
 	    for(Group group : Group.fetchByUser(user.email)) {
 	    	try {
 				String groupQuery = URLEncoder.encode(group.name, "UTF-8");
-				htmlBuilder.addToBody("<li><a href='/group?name=" + groupQuery + "'>" + group.name + "</a></li>");
+				htmlBuilder.addToBody("<li id='"+group.name+"'><a href='/group?name=" + groupQuery + "'>" + group.name + "</a>&nbsp;&nbsp;<a href='/?action=delete&amp;name="+group.name+"'><button>DELETE</button></a></li><br/>");
 			} catch (UnsupportedEncodingException e) {}
 	    }
-	    htmlBuilder.addToBody("</ul>");
+    htmlBuilder.addToBody("</ul>");
 	}
 
 
