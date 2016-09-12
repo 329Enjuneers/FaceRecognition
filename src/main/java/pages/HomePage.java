@@ -37,7 +37,7 @@ public class HomePage extends Page {
 	    newGroupForm.addProperty("method", "POST");
 	    newGroupForm.addProperty("style", "margin-bottom:2em");
 	    newGroupForm.addElement("<div style='margin-bottom: 1em'><label><b>New Group</b></label></div>");
-	    newGroupForm.addElement("<input name='group-name' placeholder='Group Name'>");
+	    newGroupForm.addElement("<input name='group-name' placeholder='Group Name' required>");
 	    newGroupForm.addElement("<button type='submit'>Add Group</button>");
 	    htmlBuilder.addToBody(newGroupForm.toString());
 	}
