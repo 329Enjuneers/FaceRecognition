@@ -8,15 +8,18 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 import group.Group;
 import group.Member;
+import java.util.Date;
 import pages.html_builder.Div;
 import pages.html_builder.Form;
 
 public class GroupMemberPage extends UserPage {
 	private Member groupMember;
+	private Group group;
 
 	public GroupMemberPage(String baseUrl, Group group, Member groupMember) {
 		super(baseUrl, group);
 		this.groupMember = groupMember;
+		this.group = group;
 	}
 
 	public String make() {
@@ -41,7 +44,7 @@ public class GroupMemberPage extends UserPage {
 		Div div = new Div();
 		div.addElement("<h3>" + groupMember.getFullName() +"</h3>");
 		htmlBuilder.addToBody(div.toString());
-	}
+		}
 
 	private void addMemberForm() {
 		Form form = new Form();
@@ -74,6 +77,9 @@ public class GroupMemberPage extends UserPage {
 		imageDiv.addProperty("style", "margin-top: 1em");
 		imageDiv.addElement("<label><b>Image</b></label><br>");
 		imageDiv.addElement("<img src='" + groupMember.servingUrl + "' style='height: 40%'>");
+		imageDiv.addElement("<br/>Last seen on: <label>" + groupMember.timeLastSeen +"</label>");
+		groupMember.timeLastSeen = new Date();
+		group.save();
 		return imageDiv.toString();
 	}
 
