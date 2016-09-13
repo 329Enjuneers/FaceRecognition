@@ -76,6 +76,9 @@ public class RecognizeServlet extends HttpServlet {
 		if (subjectId == null) {
 			basicPage.setTitle("Unrecognized");
 			extraHtml = "Sorry, we did not recognize this person.";
+			/**
+			 * Add "Would you like to add this person to your group/our database?
+			 */
 		}
 		else {
 			basicPage.setTitle("Recognized");

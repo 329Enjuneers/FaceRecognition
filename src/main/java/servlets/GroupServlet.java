@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import group.Group;
+import group.Member;
 import pages.GroupPage;
+import pages.HomePage;
 import user.User;
 
 public class GroupServlet extends HttpServlet {
@@ -24,6 +26,15 @@ public class GroupServlet extends HttpServlet {
 		
 		Group group = Group.getOrInsert(groupName, user.email);
 		out.write(new GroupPage(req.getRequestURI(), group).make());
+		if(req.getParameterMap().containsKey("lastName") && req.getParameterMap().containsKey("action")){
+			User u = User.getCurrentUser();
+			Member m = new Member(req.getParameter("firstName"), req.getParameter("lastName"));
+			Group g = Group.get(req.getParameter("groupName"), u.email);
+			if( g != null){
+				g.deleteMember(m);
+			}
+		}
+
 	}
 
 	@Override

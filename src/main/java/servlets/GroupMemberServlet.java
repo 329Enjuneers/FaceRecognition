@@ -21,8 +21,10 @@ public class GroupMemberServlet extends HttpServlet {
 		String subjectId = req.getParameter("subjectId");
 		User user = User.getCurrentUser();
 		
+		
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
+		
 		
 		if (groupName == null || subjectId == null) {
 			out.write("Insufficient data");
@@ -43,6 +45,7 @@ public class GroupMemberServlet extends HttpServlet {
 			resp.setStatus(404);
 			return;
 		}
+		
 		out.write(new GroupMemberPage(req.getRequestURI(), group, member).make());
 	}
 	
@@ -52,7 +55,7 @@ public class GroupMemberServlet extends HttpServlet {
 		String subjectId = req.getParameter("subjectId");
 		String notes = req.getParameter("notes");
 		User user = User.getCurrentUser();
-		
+
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
 		
@@ -75,6 +78,8 @@ public class GroupMemberServlet extends HttpServlet {
 			resp.setStatus(404);
 			return;
 		}
+		
+		
 		member.notes = notes;
 		group.save();
 		resp.sendRedirect("/member?groupName=" + group.name + "&subjectId=" + member.getSubjectId());

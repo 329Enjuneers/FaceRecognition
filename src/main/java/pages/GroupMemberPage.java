@@ -1,5 +1,11 @@
 package pages;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+
 import group.Group;
 import group.Member;
 import pages.html_builder.Div;
@@ -82,6 +88,10 @@ public class GroupMemberPage extends UserPage {
 		notesDiv.addElement("<textarea name='notes' placeholder='Birthday is February 8' style='width: 23.4em; height: 6em;'>" + notes + "</textarea>");
 		return notesDiv.toString();
 	}
+	
+	/**
+	 * Add "Last seen: " ?
+	 */
 
 	private String getSubmitDiv() {
 		Div submitDiv = new Div();

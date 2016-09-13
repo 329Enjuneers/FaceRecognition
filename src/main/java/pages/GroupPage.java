@@ -39,7 +39,7 @@ public class GroupPage extends UserPage {
 	}
 
 	private String getMemberLink(Member member) {
-		return "<li><a href='/member" + getMemberLinkQuery(member) + "'>" + member.getFullName() + "</a></li>";
+		return "<li><a href='/member" + getMemberLinkQuery(member) + "'>" + member.getFullName() + "</a>&nbsp;&nbsp;<a href='/?action=delete&amp;lastName="+ member.getLast()+"'><button>DELETE</button></a></li>";
 	}
 
 	private String getMemberLinkQuery(Member member) {

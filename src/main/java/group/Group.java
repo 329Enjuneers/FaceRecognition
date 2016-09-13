@@ -66,6 +66,12 @@ public class Group {
 		}
 		return null;
 	}
+	
+	public void deleteMember(Member member)
+	{
+		members.remove(member);
+		save();
+	}
 
 	public Iterable<Member> getMembers() {
 		return (Iterable<Member>) members;
