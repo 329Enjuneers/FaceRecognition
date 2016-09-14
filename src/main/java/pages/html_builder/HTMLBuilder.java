@@ -103,7 +103,7 @@ public class HTMLBuilder {
 	  UserService userService = UserServiceFactory.getUserService();
 	  Div div = new Div();
 	  div.addElement("<h4 style='display: inline'>Welcome, " + user.nickname + "</h4>");
-      div.addElement("<span style='float: right'>Logout <a href='" + userService.createLogoutURL(baseUrl) + "'> here </a></span>");
+      div.addElement("<span style='float: right'><a href='" + userService.createLogoutURL(baseUrl) + "'> <button>Logout</button></a></span>");
 
       Div tabs = new Div();
       tabs.addElement("<a href='/'>Home</a>");

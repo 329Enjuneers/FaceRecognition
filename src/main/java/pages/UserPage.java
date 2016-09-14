@@ -11,17 +11,17 @@ import pages.html_builder.Div;
 
 public class UserPage extends Page{
 	protected Group group;
-	
+
 	public UserPage() {
 		super();
 	}
-	
+
 	public UserPage(String baseUrl, Group group) {
 		super(baseUrl);
 		htmlBuilder.includeAppHeader = true;
 		this.group = group;
 	}
-	
+
 	public String make() {
 		if (user == null) {
 			addLogout();
@@ -30,32 +30,32 @@ public class UserPage extends Page{
 		addHeader();
 		return htmlBuilder.build();
 	}
-	
+
 	public void setTitle(String title) {
 		try {
 			htmlBuilder.setTitle(title);
 		} catch (Exception e) {}
 	}
-	
+
 	protected void addLogout() {
 		UserService userService = UserServiceFactory.getUserService();
 		htmlBuilder.addToBody("You are not logged in!");
-    	htmlBuilder.addToBody("Login <a href='" + userService.createLoginURL(baseUrl) + "'> here </a>");
+    	htmlBuilder.addToBody("<a href='" + userService.createLoginURL(baseUrl) + "'> <button>Login</button> </a>");
 	}
-	
+
 	protected void addHeader() {
 		addGroupTitle();
-		Div tabs = new Div(); 
+		Div tabs = new Div();
 		try {
 			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
 			tabs.addElement("<a href='/enroll?groupName=" + groupQuery + "'>Enroll</a>");
-			
+
 			if(group.getNumMembers() != 0)
 			{
 				tabs.addElement("<span style='border-right: 1px solid black; margin-left: .2em; margin-right: .3em;'></span>");
 				tabs.addElement("<a href='/recognize?groupName=" + groupQuery + "'>Recognize</a>");
 			}
-			
+
 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -63,7 +63,7 @@ public class UserPage extends Page{
 		htmlBuilder.addToBody(tabs.toString());
 		addHorizontalRule();
 	}
-	
+
 	protected void addGroupTitle() {
 		try {
 			System.out.println("group");
@@ -75,7 +75,7 @@ public class UserPage extends Page{
 			e.printStackTrace();
 		}
 	}
-	
+
 	protected void addHorizontalRule() {
 		htmlBuilder.addToBody("<hr>");
 	}
