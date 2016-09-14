@@ -1,6 +1,7 @@
 package pages;
 
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import group.Group;
 import group.Member;
@@ -70,10 +71,13 @@ public class GroupMemberPage extends UserPage {
 		imageDiv.addProperty("style", "margin-top: 1em");
 		imageDiv.addElement("<label><b>Image</b></label><br>");
 		imageDiv.addElement("<img src='" + groupMember.servingUrl + "' style='height: 40%'>");
-		imageDiv.addElement("<br/>Last seen on: <label>" + groupMember.timeLastSeen +"</label>");
-		groupMember.timeLastSeen = new Date();
-		group.save();
+		imageDiv.addElement("<br/>Last seen on: <label>" + getTimeLastSeenString() +"</label>");
 		return imageDiv.toString();
+	}
+	
+	private String getTimeLastSeenString() {
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		return df.format(groupMember.timeLastSeen);
 	}
 
 	private String getNotesDiv() {
@@ -87,10 +91,6 @@ public class GroupMemberPage extends UserPage {
 		notesDiv.addElement("<textarea name='notes' placeholder='Birthday is February 8' style='width: 23.4em; height: 6em;'>" + notes + "</textarea>");
 		return notesDiv.toString();
 	}
-	
-	/**
-	 * Add "Last seen: " ?
-	 */
 
 	private String getSubmitDiv() {
 		Div submitDiv = new Div();

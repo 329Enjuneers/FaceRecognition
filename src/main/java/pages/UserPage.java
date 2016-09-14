@@ -66,6 +66,9 @@ public class UserPage extends Page{
 	
 	protected void addGroupTitle() {
 		try {
+			System.out.println("group");
+			System.out.println(group);
+			System.out.println(group.name);
 			String groupQuery = URLEncoder.encode(group.name, "UTF-8");
 			htmlBuilder.addToBody("<h4><a href='/group?name=" + groupQuery + "'>" + group.name + "</a></h4>");
 		} catch (UnsupportedEncodingException e) {

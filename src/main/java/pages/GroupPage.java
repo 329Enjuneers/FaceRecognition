@@ -39,14 +39,28 @@ public class GroupPage extends UserPage {
 	}
 
 	private String getMemberLink(Member member) {
-		return "<li><a href='/member" + getMemberLinkQuery(member) + "'>" + member.getFullName() + "</a>&nbsp;&nbsp;<a href='/?action=delete&amp;lastName="+ member.getLast()+"'><button>DELETE</button></a></li>";
+		return "<li><a href='/member" + getMemberLinkQuery(member) + "'>" + member.getFullName() + "</a>&nbsp;&nbsp;<a href='/group?name=" + encodeGroupName() + "&action=delete"+ getSubjectIdQuery(member) +"'><button>DELETE</button></a></li>";
 	}
 
 	private String getMemberLinkQuery(Member member) {
+		String groupQuery = "?groupName=" + encodeGroupName();
+		return groupQuery + getSubjectIdQuery(member);
+	}
+	
+	private String encodeGroupName() {
 		try {
-			String groupQuery = "?groupName=" + URLEncoder.encode(group.name, "UTF-8");
+			return URLEncoder.encode(group.name, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private String getSubjectIdQuery(Member member) {
+		try {
 			String subjectIdQuery = "&subjectId=" + URLEncoder.encode(member.getSubjectId(), "UTF-8");
-			return groupQuery + subjectIdQuery;
+			return subjectIdQuery;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
