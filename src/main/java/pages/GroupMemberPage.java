@@ -1,25 +1,18 @@
 package pages;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import java.util.Date;
 
 import group.Group;
 import group.Member;
-import java.util.Date;
 import pages.html_builder.Div;
 import pages.html_builder.Form;
 
 public class GroupMemberPage extends UserPage {
 	private Member groupMember;
-	private Group group;
 
 	public GroupMemberPage(String baseUrl, Group group, Member groupMember) {
 		super(baseUrl, group);
 		this.groupMember = groupMember;
-		this.group = group;
 	}
 
 	public String make() {

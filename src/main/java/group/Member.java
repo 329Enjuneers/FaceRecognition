@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Member {
-	public static String firstName;
-	public static String lastName;
+	public String firstName;
+	public String lastName;
 	public String notes;
 	public String servingUrl;
 	public Date timeLastSeen;
@@ -32,14 +32,14 @@ public class Member {
 	}
 	
 	
-	public static String getFullName() {
+	public String getFullName() {
 		return firstName + " " + lastName;
 	}
-	public static String getFirst()
+	public String getFirst()
 	{
 		return firstName;
 	}
-	public static String getLast()
+	public String getLast()
 	{
 		return lastName;
 	}
