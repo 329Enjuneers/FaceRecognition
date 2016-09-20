@@ -6,10 +6,6 @@
 <!-- [START standard_mappings] -->
     TODO build out servlets -->
     <servlet>
-      <servlet-name>Face</servlet-name>
-      <servlet-class>servlets.FaceServlet</servlet-class>
-    </servlet>
-    <servlet>
       <servlet-name>Home</servlet-name>
       <servlet-class>servlets.HomeServlet</servlet-class>
     </servlet>
@@ -34,10 +30,6 @@
     <servlet-mapping>
       <servlet-name>Home</servlet-name>
       <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-      <servlet-name>Face</servlet-name>
-      <url-pattern>/face</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
       <servlet-name>Group</servlet-name>
